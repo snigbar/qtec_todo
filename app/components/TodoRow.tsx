@@ -12,6 +12,7 @@ export default function TodoRow({
   toggleCompleted: (id: string) => void;
 }) {
   const [editing, setEditing] = useState<boolean>(false);
+
   return editing ? (
     <EditInput
       id={todo.id}
@@ -22,21 +23,43 @@ export default function TodoRow({
     <div
       className={`${
         todo.status === "completed"
-          ? "bg-red-500 text-white shadow-lg"
+          ? "bg-red-400 shadow-lg text-white"
           : "bg-white"
-      } w-full p-3 rounded-lg flex flex-col gap-4 md:gap-0 md:flex-row justify-between items-center flex-wrap text-center`}
+      } w-full p-3 rounded-lg flex flex-col gap-4 md:gap-0 md:flex-row justify-between items-center text-center`}
     >
-      <p className="basis-2/5">{todo.todo}</p>
-      <p className="basis-[12%]">{todo.priority}</p>
-      <p className="basis-[12%]">{todo.status}</p>
+      <p className="basis-2/5">
+        <span className="md:hidden mr-2 font-semibold block">Task:</span>
+        {todo.todo}
+      </p>
+      <p
+        className={`basis-[12%] ${
+          todo.priority === "high"
+            ? "bg-fuchsia-600"
+            : todo.priority === "moderate"
+            ? "bg-indigo-600"
+            : "bg-lime-500"
+        } text-white p-1`}
+      >
+        <span className={`md:hidden mr-2 font-semibold block `}>Priority:</span>
+        {todo.priority}
+      </p>
+      <p className="basis-[12%]">
+        <span className="">Status:</span>
+        {todo.status}
+      </p>
 
+      <label className="md:hidden mr-2 font-semibold inline-block">
+        Mark as Completed:{" "}
+      </label>
       <input
         type="checkbox"
         className="basis-[12%] w-6 h-6"
         onChange={() => toggleCompleted(todo.id)}
+        checked={todo.status === "completed"}
       />
 
       <button className="basis-[12%] w-full" onClick={() => setEditing(true)}>
+        <span className="md:hidden mr-2 font-semibold">Edit:</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -58,6 +81,7 @@ export default function TodoRow({
         className="basis-[12%] w-full"
         onClick={() => handleDelete(todo.id)}
       >
+        <span className="md:hidden mr-2 font-semibold">Delete:</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
