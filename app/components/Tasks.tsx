@@ -4,7 +4,7 @@ import { useAppContext } from "../context/appContext";
 import TodoRow from "./TodoRow";
 
 export default function Tasks() {
-  const { myTodos, handleDelete } = useAppContext();
+  const { myTodos, handleDelete, toggleCompleted } = useAppContext();
 
   if (myTodos && !(myTodos.length > 0)) {
     return (
@@ -37,6 +37,7 @@ export default function Tasks() {
           key={todo.id}
           handleDelete={handleDelete}
           todo={todo}
+          toggleCompleted={toggleCompleted}
         ></TodoRow>
       ))}
     </div>

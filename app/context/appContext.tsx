@@ -52,7 +52,9 @@ export default function AppContext({ children }: { children: ReactNode }) {
     setMyTodos((prev) => {
       const updatedTodos = prev.map((val) => {
         if (val.id === id) {
-          return { ...val, status: "completed" as const };
+          if (val.status === "pending")
+            return { ...val, status: "completed" as const };
+          else return { ...val, status: "pending" as const };
         }
         return val;
       });

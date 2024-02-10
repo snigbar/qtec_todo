@@ -5,9 +5,11 @@ import { EditInput } from "./EditInput";
 export default function TodoRow({
   todo,
   handleDelete,
+  toggleCompleted,
 }: {
   todo: Todos;
   handleDelete: (id: string) => void;
+  toggleCompleted: (id: string) => void;
 }) {
   const [editing, setEditing] = useState<boolean>(false);
   return editing ? (
@@ -17,12 +19,22 @@ export default function TodoRow({
       oldTodo={todo.todo}
     ></EditInput>
   ) : (
-    <div className="bg-white w-full p-3 rounded-lg flex flex-col gap-4 md:gap-0 md:flex-row justify-between items-center flex-wrap text-center">
+    <div
+      className={`${
+        todo.status === "completed"
+          ? "bg-red-500 text-white shadow-lg"
+          : "bg-white"
+      } w-full p-3 rounded-lg flex flex-col gap-4 md:gap-0 md:flex-row justify-between items-center flex-wrap text-center`}
+    >
       <p className="basis-2/5">{todo.todo}</p>
       <p className="basis-[12%]">{todo.priority}</p>
       <p className="basis-[12%]">{todo.status}</p>
 
-      <input type="checkbox" className="basis-[12%] w-6 h-6" />
+      <input
+        type="checkbox"
+        className="basis-[12%] w-6 h-6"
+        onChange={() => toggleCompleted(todo.id)}
+      />
 
       <button className="basis-[12%] w-full" onClick={() => setEditing(true)}>
         <svg
