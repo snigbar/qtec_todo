@@ -44,7 +44,7 @@ export default function TodoRow({
         {todo.priority}
       </p>
       <p className="basis-[12%]">
-        <span className="">Status:</span>
+        <span className="md:hidden mr-2 font-semibold block">Status:</span>
         {todo.status}
       </p>
 
