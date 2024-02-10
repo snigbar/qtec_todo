@@ -18,7 +18,11 @@ type TContext = {
   myTodos: Todos[];
   addTodos: (todo: Todos) => void;
   toggleCompleted: (id: string) => void;
-  editTodos: (data: string, id: string) => void;
+  editTodos: (
+    id: string,
+    newTodo: string,
+    newPriority: "high" | "moderate" | "low"
+  ) => void;
   handleDelete: (id: string) => void;
 };
 
@@ -57,11 +61,15 @@ export default function AppContext({ children }: { children: ReactNode }) {
     });
   };
 
-  const editTodos = (data: string, id: string) => {
+  const editTodos = (
+    id: string,
+    newTodo: string,
+    newPriority: "high" | "moderate" | "low"
+  ) => {
     setMyTodos((prev) => {
       const updatedTodos = prev.map((val) => {
         if (val.id === id) {
-          return { ...val, todo: data };
+          return { ...val, todo: newTodo, priority: newPriority };
         }
         return val;
       });

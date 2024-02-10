@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Todos, useAppContext } from "../context/appContext";
+import { useAppContext } from "../context/appContext";
 
 export default function Input() {
   const { addTodos } = useAppContext();
